@@ -8,12 +8,6 @@ include_directories(src/include)
 
 add_executable(lab
     src/main.cpp
-    src/core/point.cpp
-    src/core/figure.cpp
-    src/core/hexagon.cpp
-    src/core/pentagon.cpp
-    src/core/rhombus.cpp
-    src/core/array.cpp
 )
 
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
@@ -36,12 +30,6 @@ add_executable(tests
     src/tests/hexagon.cpp
     src/tests/pentagon.cpp
     src/tests/rhombus.cpp
-    src/core/array.cpp
-    src/core/figure.cpp
-    src/core/point.cpp
-    src/core/hexagon.cpp
-    src/core/pentagon.cpp
-    src/core/rhombus.cpp
 )
 
 target_link_libraries(tests GTest::gtest_main)
