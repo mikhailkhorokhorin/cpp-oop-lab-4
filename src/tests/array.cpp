@@ -2,9 +2,9 @@
 
 #include <gtest/gtest.h>
 
-#include "../include/hexagon.hpp"
-#include "../include/pentagon.hpp"
-#include "../include/rhombus.hpp"
+#include "hexagon.hpp"
+#include "pentagon.hpp"
+#include "rhombus.hpp"
 
 template <Scalar T>
 shared_ptr<Rhombus<T>> makeRhombus() {

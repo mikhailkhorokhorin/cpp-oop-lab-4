@@ -1,9 +1,9 @@
 #include <iostream>
 
-#include "include/array.hpp"
-#include "include/hexagon.hpp"
-#include "include/pentagon.hpp"
-#include "include/rhombus.hpp"
+#include "array.hpp"
+#include "hexagon.hpp"
+#include "pentagon.hpp"
+#include "rhombus.hpp"
 
 int main() {
     Rhombus<int> rhombus({0, 0}, {2, 1}, {0, 2}, {-2, 1});
