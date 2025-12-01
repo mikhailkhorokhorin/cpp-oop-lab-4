@@ -2,7 +2,7 @@
 #include <iostream>
 #include <memory>
 
-#include "figure.h"
+#include "figure.hpp"
 
 template <Scalar T>
 class Array {

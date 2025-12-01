@@ -2,7 +2,7 @@
 #include <iostream>
 #include <memory>
 
-#include "point.h"
+#include "point.hpp"
 
 template <Scalar T>
 class Figure {

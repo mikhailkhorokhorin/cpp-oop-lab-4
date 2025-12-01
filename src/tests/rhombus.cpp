@@ -1,4 +1,4 @@
-#include "../include/rhombus.h"
+#include "../include/rhombus.hpp"
 
 #include <gtest/gtest.h>
 

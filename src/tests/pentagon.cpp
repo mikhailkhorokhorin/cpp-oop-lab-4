@@ -1,4 +1,4 @@
-#include "../include/pentagon.h"
+#include "../include/pentagon.hpp"
 
 #include <gtest/gtest.h>
 

@@ -2,27 +2,26 @@
 #include <cmath>
 #include <iostream>
 
-#include "figure.h"
+#include "figure.hpp"
 
 template <Scalar T>
-class Hexagon : public Figure<T> {
+class Pentagon : public Figure<T> {
    public:
-    Hexagon(const Point<T>& point1, const Point<T>& point2, const Point<T>& point3,
-            const Point<T>& point4, const Point<T>& point5, const Point<T>& point6) {
-        this->size_ = 6;
-        this->points_ = std::make_unique<Point<T>[]>(6);
+    Pentagon(const Point<T>& point1, const Point<T>& point2, const Point<T>& point3,
+             const Point<T>& point4, const Point<T>& point5) {
+        this->size_ = 5;
+        this->points_ = std::make_unique<Point<T>[]>(5);
 
         this->points_[0] = point1;
         this->points_[1] = point2;
         this->points_[2] = point3;
         this->points_[3] = point4;
         this->points_[4] = point5;
-        this->points_[5] = point6;
     }
 
-    Hexagon() = default;
+    Pentagon() = default;
 
-    Hexagon(const Hexagon& other) {
+    Pentagon(const Pentagon& other) {
         this->size_ = other.size_;
         this->points_ = std::make_unique<Point<T>[]>(this->size_);
 
@@ -36,6 +35,7 @@ class Hexagon : public Figure<T> {
             cx += this->points_[i].x;
             cy += this->points_[i].y;
         }
+
         return Point<T>(cx / this->size_, cy / this->size_);
     }
 
@@ -55,32 +55,32 @@ class Hexagon : public Figure<T> {
         for (size_t i = 0; i < this->size_; ++i)
             os << "(" << this->points_[i].x << "," << this->points_[i].y << ") ";
         os << "Area = " << getArea() << " ";
-        os << "Center: (" << getCenter().x << "," << getCenter().y << ")" << std::endl;
+        os << "Center: (" << getCenter().x << "," << getCenter().y << ")"  << std::endl;
     }
 
     void read(std::istream& is) override {
-        this->size_ = 6;
-        this->points_ = std::make_unique<Point<T>[]>(6);
+        this->size_ = 5;
+        this->points_ = std::make_unique<Point<T>[]>(5);
 
         for (size_t i = 0; i < this->size_; ++i)
             is >> this->points_[i].x >> this->points_[i].y;
     }
 
-    bool operator==(const Hexagon<T>& other) const {
-        for (size_t i = 0; i < 6; ++i)
+    bool operator==(const Pentagon<T>& other) const {
+        for (size_t i = 0; i < 5; ++i)
             if (!(this->points_[i] == other.points_[i]))
                 return false;
         return true;
     }
 
     bool operator==(const Figure<T>& other) const override {
-        const Hexagon<T>* hexagon = dynamic_cast<const Hexagon<T>*>(&other);
-        if (!hexagon)
+        const Pentagon<T>* pentagon = dynamic_cast<const Pentagon<T>*>(&other);
+        if (!pentagon)
             return false;
-        return *this == *hexagon;
+        return *this == *pentagon;
     }
 
     std::unique_ptr<Figure<T>> clone() const override {
-        return std::make_unique<Hexagon<T>>(*this);
+        return std::make_unique<Pentagon<T>>(*this);
     }
 };

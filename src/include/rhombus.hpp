@@ -2,26 +2,32 @@
 #include <cmath>
 #include <iostream>
 
-#include "figure.h"
+#include "figure.hpp"
 
 template <Scalar T>
-class Pentagon : public Figure<T> {
+class Rhombus : public Figure<T> {
+   private:
+    static T distance(const Point<T>& a, const Point<T>& b) {
+        T dx = a.x - b.x;
+        T dy = a.y - b.y;
+        return std::sqrt(dx * dx + dy * dy);
+    }
+
    public:
-    Pentagon(const Point<T>& point1, const Point<T>& point2, const Point<T>& point3,
-             const Point<T>& point4, const Point<T>& point5) {
-        this->size_ = 5;
-        this->points_ = std::make_unique<Point<T>[]>(5);
+    Rhombus(const Point<T>& point1, const Point<T>& point2, const Point<T>& point3,
+            const Point<T>& point4) {
+        this->size_ = 4;
+        this->points_ = std::make_unique<Point<T>[]>(4);
 
         this->points_[0] = point1;
         this->points_[1] = point2;
         this->points_[2] = point3;
         this->points_[3] = point4;
-        this->points_[4] = point5;
     }
 
-    Pentagon() = default;
+    Rhombus() = default;
 
-    Pentagon(const Pentagon& other) {
+    Rhombus(const Rhombus& other) {
         this->size_ = other.size_;
         this->points_ = std::make_unique<Point<T>[]>(this->size_);
 
@@ -31,6 +37,7 @@ class Pentagon : public Figure<T> {
 
     Point<T> getCenter() const override {
         T cx = 0, cy = 0;
+
         for (size_t i = 0; i < this->size_; ++i) {
             cx += this->points_[i].x;
             cy += this->points_[i].y;
@@ -40,47 +47,42 @@ class Pentagon : public Figure<T> {
     }
 
     double getArea() const override {
-        double area = 0.0;
+        T d1 = distance(this->points_[0], this->points_[2]);
+        T d2 = distance(this->points_[1], this->points_[3]);
 
-        for (size_t i = 0; i < this->size_; ++i) {
-            const Point<T>& p1 = this->points_[i];
-            const Point<T>& p2 = this->points_[(i + 1) % this->size_];
-            area += (p1.x * p2.y - p2.x * p1.y);
-        }
-
-        return std::abs(area) / 2.0;
+        return static_cast<double>(d1 * d2) / 2.0;
     }
 
     void print(std::ostream& os) const override {
         for (size_t i = 0; i < this->size_; ++i)
             os << "(" << this->points_[i].x << "," << this->points_[i].y << ") ";
         os << "Area = " << getArea() << " ";
-        os << "Center: (" << getCenter().x << "," << getCenter().y << ")"  << std::endl;
+        os << "Center: (" << getCenter().x << "," << getCenter().y << ")" << std::endl;
     }
 
     void read(std::istream& is) override {
-        this->size_ = 5;
-        this->points_ = std::make_unique<Point<T>[]>(5);
+        this->size_ = 4;
+        this->points_ = std::make_unique<Point<T>[]>(4);
 
         for (size_t i = 0; i < this->size_; ++i)
             is >> this->points_[i].x >> this->points_[i].y;
     }
 
-    bool operator==(const Pentagon<T>& other) const {
-        for (size_t i = 0; i < 5; ++i)
+    bool operator==(const Rhombus<T>& other) const {
+        for (size_t i = 0; i < 4; ++i)
             if (!(this->points_[i] == other.points_[i]))
                 return false;
         return true;
     }
 
     bool operator==(const Figure<T>& other) const override {
-        const Pentagon<T>* pentagon = dynamic_cast<const Pentagon<T>*>(&other);
-        if (!pentagon)
+        const Rhombus<T>* rhombus = dynamic_cast<const Rhombus<T>*>(&other);
+        if (!rhombus)
             return false;
-        return *this == *pentagon;
+        return *this == *rhombus;
     }
 
     std::unique_ptr<Figure<T>> clone() const override {
-        return std::make_unique<Pentagon<T>>(*this);
+        return std::make_unique<Rhombus<T>>(*this);
     }
 };

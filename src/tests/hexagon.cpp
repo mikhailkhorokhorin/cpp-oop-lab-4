@@ -1,4 +1,4 @@
-#include "../include/hexagon.h"
+#include "../include/hexagon.hpp"
 
 #include <gtest/gtest.h>
 
