@@ -2,8 +2,6 @@
 
 #include <gtest/gtest.h>
 
-#include <sstream>
-
 TEST(HexagonTest, DefaultConstructor) {
     Hexagon<int> hexagon;
     EXPECT_EQ(hexagon.getSize(), 0);
